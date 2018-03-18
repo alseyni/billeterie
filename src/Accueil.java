@@ -12,8 +12,10 @@ public class Accueil extends javax.swing.JFrame {
      */
     public Accueil() {
         initComponents();
-        showBillet();
+        showBillet(); // Remplissage du tableau
     }
+    
+    int pos = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,19 +43,16 @@ public class Accueil extends javax.swing.JFrame {
         JRB_non = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         JT_billet = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        JB_precedent = new javax.swing.JButton();
+        JB_suivant = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        JB_supprimer = new javax.swing.JButton();
+        JTF_num = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         JT_billetR = new javax.swing.JTable();
         JTF_id = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,13 +120,35 @@ public class Accueil extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(JT_billet);
 
-        jButton4.setText("Précèdent");
+        JB_precedent.setText("Précèdent");
+        JB_precedent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_precedentActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Suivant");
+        JB_suivant.setText("Suivant");
+        JB_suivant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_suivantActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Modifier");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Supprimer");
+        JB_supprimer.setText("Supprimer");
+        JB_supprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_supprimerActionPerformed(evt);
+            }
+        });
+
+        JTF_num.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -137,23 +158,30 @@ public class Accueil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(JB_supprimer)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JB_precedent)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTF_nom, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JB_suivant, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(JTF_num, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JTF_nom, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTF_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JTF_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTF_email, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                        .addComponent(JTF_email, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JCB_concert, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(JCB_concert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -163,13 +191,7 @@ public class Accueil extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(JB_reserver)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton2)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -189,14 +211,15 @@ public class Accueil extends javax.swing.JFrame {
                     .addComponent(JRB_oui)
                     .addComponent(JRB_non)
                     .addComponent(JB_reserver)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(JTF_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton3))
+                    .addComponent(JB_precedent)
+                    .addComponent(JB_suivant)
+                    .addComponent(JB_supprimer))
                 .addContainerGap())
         );
 
@@ -220,21 +243,12 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("Numéro identifiant");
-
         jButton1.setText("Lancer la recherche");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jButton6.setText("Précèdent");
-
-        jButton7.setText("Suivant");
-
-        jButton8.setText("Supprimer");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -245,18 +259,10 @@ public class Accueil extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1251, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(JTF_id, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JTF_id, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -265,16 +271,10 @@ public class Accueil extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTF_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8))
-                .addContainerGap())
+                .addGap(40, 40, 40))
         );
 
         jTabbedPane3.addTab("Recherche", jPanel3);
@@ -323,13 +323,14 @@ public class Accueil extends javax.swing.JFrame {
     private void JB_reserverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_reserverActionPerformed
         Connection con = getConnection();
 
-        if(checkInput()) {
+        if(checkInput()) { // Si les cases sont bien remplies
             try {
+                // Utilisation des requetes préparées
                 PreparedStatement ps = con.prepareStatement("INSERT INTO billet(nom, prenom, email, concert, place_assise, numero_place, prix) " + "VALUES(?, ?, ?, ?, ?, ?, ?)");
                 ps.setString(1, JTF_nom.getText());
                 ps.setString(2, JTF_prenom.getText());
                 ps.setString(3, JTF_email.getText());
-                ps.setString(4, "Zaho");
+                ps.setString(4, JCB_concert.getSelectedItem().toString());
                 if (JRB_oui.isSelected()) {
                     ps.setString(5, "Oui");
                     ps.setInt(6, 1);
@@ -352,7 +353,7 @@ public class Accueil extends javax.swing.JFrame {
     }//GEN-LAST:event_JB_reserverActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Display search result into the Jtable
+        // Affichage des résultats de la recherche au niveau du JTable
         showSearchBillet();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -361,12 +362,85 @@ public class Accueil extends javax.swing.JFrame {
     }//GEN-LAST:event_JTF_idActionPerformed
 
     private void JT_billetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JT_billetMouseClicked
-        // Fill Jtext at table elements click
+        // Remplissage des inputs au click sur une ligne du JTable
         int index = JT_billet.getSelectedRow();
         showElements(index);
     }//GEN-LAST:event_JT_billetMouseClicked
 
-    // check inputs
+    private void JB_suivantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_suivantActionPerformed
+        // Parcours de la liste des billets avec le bouttton suivant
+        pos++;
+        if (pos >= getBillet().size()) {
+            pos = getBillet().size() - 1 ;
+        }
+        showElements(pos);
+    }//GEN-LAST:event_JB_suivantActionPerformed
+
+    private void JB_precedentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_precedentActionPerformed
+        // Parcours de la liste des billets avec le bouttton précèdent
+        pos--;
+        if (pos < 0) {
+            pos = 0;
+        }
+        showElements(pos);
+    }//GEN-LAST:event_JB_precedentActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Mise à jour des données
+        Connection con = getConnection();
+
+        if(checkInput()) { // Si les cases sont bien remplies
+            try {
+                // Utilisation des requetes préparées
+                PreparedStatement ps = con.prepareStatement("UPDATE billet SET nom = ?, prenom = ?, email = ?, concert = ?, place_assise = ?, numero_place = ?, prix = ? WHERE id = ?");
+                ps.setString(1, JTF_nom.getText());
+                ps.setString(2, JTF_prenom.getText());
+                ps.setString(3, JTF_email.getText());
+                ps.setString(4, JCB_concert.getSelectedItem().toString());
+                if (JRB_oui.isSelected()) {
+                    ps.setString(5, "Oui");
+                    ps.setInt(6, 1);
+                    ps.setInt(7, 30);
+                } else {
+                    ps.setString(5, "Non");
+                    ps.setInt(6, 0);
+                    ps.setInt(7, 20);
+                }
+                ps.setString(8, JTF_num.getText());
+                ps.executeUpdate();
+                showBillet();
+                JOptionPane.showMessageDialog(null, "Modifications enregistrés avec succès");
+            } catch (SQLException ex) {
+                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Veuillez renseigner correctement les champs !");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void JB_supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_supprimerActionPerformed
+        // Suppression des éléments
+        Connection con = getConnection();
+        
+        if(checkInput()) { // Si les cases sont bien remplies
+            try {
+                // Utilisation des requetes préparées
+                PreparedStatement ps = con.prepareStatement("DELETE FROM billet WHERE id = ?");
+                ps.setString(1, JTF_num.getText());
+                ps.executeUpdate();
+                showBillet();
+                JOptionPane.showMessageDialog(null, "Données supprimées avec succès");
+            } catch (SQLException ex) {
+                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Veuillez renseigner correctement les champs !");
+        }
+    }//GEN-LAST:event_JB_supprimerActionPerformed
+
+    // On vérifie que les inputs sont bien remplies
     public boolean checkInput() {
         if (JTF_nom.getText().equals("") && JTF_prenom.getText().equals("") && JTF_email.getText().equals(""))
             return false;
@@ -410,30 +484,27 @@ public class Accueil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JB_precedent;
     private javax.swing.JButton JB_reserver;
+    private javax.swing.JButton JB_suivant;
+    private javax.swing.JButton JB_supprimer;
     private javax.swing.JComboBox<String> JCB_concert;
     private javax.swing.JRadioButton JRB_non;
     private javax.swing.JRadioButton JRB_oui;
     private javax.swing.JTextField JTF_email;
     private javax.swing.JTextField JTF_id;
     private javax.swing.JTextField JTF_nom;
+    private javax.swing.JTextField JTF_num;
     private javax.swing.JTextField JTF_prenom;
     private javax.swing.JTable JT_billet;
     private javax.swing.JTable JT_billetR;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -454,7 +525,7 @@ public class Accueil extends javax.swing.JFrame {
         }
     }
     
-    // Display data in the JTable
+    // Affichage des données contenues dans la classe Billet
     public ArrayList<Billet> getBillet() {
         
         ArrayList<Billet> listBillet = new ArrayList<Billet>();
@@ -478,13 +549,13 @@ public class Accueil extends javax.swing.JFrame {
         return listBillet;
     }
     
-    // Show billets in to the JTable
+    // Affichage des données au niveau du JTable
     
     public void showBillet() {
         ArrayList<Billet> list = getBillet();
         DefaultTableModel model = (DefaultTableModel)JT_billet.getModel();
         Object[] row = new Object[8];
-        
+        model.setRowCount(0);
         for(int i = 0 ; i < list.size() ; i++) {
             row[0] = list.get(i).getId();
             row[1] = list.get(i).getNom();
@@ -494,11 +565,11 @@ public class Accueil extends javax.swing.JFrame {
             row[5] = list.get(i).getPlaceAssise();
             row[6] = list.get(i).getNumeroPlace();
             row[7] = list.get(i).getPrix();
-        }
-        model.addRow(row);
+            model.addRow(row);
+        }   
     }
     
-      // Display search result in the JTable
+      // Affichage des résultats de la recherche au niveau du JTable
     public ArrayList<Billet> getResultBillet() {
         
         ArrayList<Billet> listBillet = new ArrayList<Billet>();
@@ -529,7 +600,8 @@ public class Accueil extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)JT_billetR.getModel();
         Object[] row = new Object[8];
         
-        for(int i = 0 ; i < list.size() ; i++) {
+        if (!(list.isEmpty())) {
+            for(int i = 0 ; i < list.size() ; i++) {
             row[0] = list.get(i).getId();
             row[1] = list.get(i).getNom();
             row[2] = list.get(i).getPrenom();
@@ -540,10 +612,14 @@ public class Accueil extends javax.swing.JFrame {
             row[7] = list.get(i).getPrix();
         }
         model.addRow(row);
+        } else {
+                JOptionPane.showMessageDialog(null, "La recherche n'a donné aucun résultat");
+        }
     }
     
     // Affichage des éléments
     public void showElements(int index) {
+        JTF_num.setText(String.valueOf(getBillet().get(index).getId()));
         JTF_nom.setText(getBillet().get(index).getNom());
         JTF_prenom.setText(getBillet().get(index).getPrenom());
         JTF_email.setText(getBillet().get(index).getEmail());
