@@ -624,5 +624,4 @@ public class Accueil extends javax.swing.JFrame {
         JTF_prenom.setText(getBillet().get(index).getPrenom());
         JTF_email.setText(getBillet().get(index).getEmail());
     }
-    
 }
