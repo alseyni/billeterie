@@ -1,3 +1,8 @@
+/*
+    Projet Ingénierie Logicielle M1 MTII
+*/
+
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -11,8 +16,9 @@ public class Accueil extends javax.swing.JFrame {
      * Creates new form Accueil
      */
     public Accueil() {
-        initComponents();
+        initComponents(); // Initialisation des composants
         showBillet(); // Remplissage du tableau
+        JRB_oui.setSelected(true);
     }
     
     int pos = 0;
@@ -38,21 +44,25 @@ public class Accueil extends javax.swing.JFrame {
         JTF_prenom = new javax.swing.JTextField();
         JTF_email = new javax.swing.JTextField();
         JCB_concert = new javax.swing.JComboBox<>();
-        JB_reserver = new javax.swing.JButton();
+        JB_modifier = new javax.swing.JButton();
         JRB_oui = new javax.swing.JRadioButton();
         JRB_non = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         JT_billet = new javax.swing.JTable();
         JB_precedent = new javax.swing.JButton();
         JB_suivant = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         JB_supprimer = new javax.swing.JButton();
+        JB_reserver = new javax.swing.JButton();
         JTF_num = new javax.swing.JTextField();
+        JTF_nump = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         JT_billetR = new javax.swing.JTable();
         JTF_id = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,10 +94,10 @@ public class Accueil extends javax.swing.JFrame {
         JCB_concert.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         JCB_concert.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Zaho le 12/12/2018", "Diams le 31/12/2018" }));
 
-        JB_reserver.setText("Réserver");
-        JB_reserver.addActionListener(new java.awt.event.ActionListener() {
+        JB_modifier.setText("Modifier");
+        JB_modifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JB_reserverActionPerformed(evt);
+                JB_modifierActionPerformed(evt);
             }
         });
 
@@ -134,13 +144,6 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Modifier");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         JB_supprimer.setText("Supprimer");
         JB_supprimer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +151,18 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
+        JB_reserver.setText("Enregistrer");
+        JB_reserver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_reserverActionPerformed(evt);
+            }
+        });
+
         JTF_num.setEnabled(false);
+
+        jLabel6.setText("Numéro place :");
+
+        jLabel7.setText("ID :");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -159,67 +173,82 @@ public class Accueil extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(JB_supprimer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JB_precedent)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JB_suivant, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(JTF_num, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JTF_num, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JTF_nom, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(JTF_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JTF_email, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(JCB_concert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JTF_nom, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTF_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTF_email, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addGap(3, 3, 3)
-                        .addComponent(JCB_concert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(JRB_oui)
+                                .addGap(11, 11, 11)
+                                .addComponent(JRB_non))
+                            .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JRB_oui)
-                        .addGap(10, 10, 10)
-                        .addComponent(JRB_non)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JB_reserver)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(JTF_nump, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(JB_reserver, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(JB_modifier)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(JB_supprimer))
+                            .addComponent(jLabel6))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(JTF_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(JTF_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(JTF_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
                     .addComponent(jLabel4)
-                    .addComponent(JCB_concert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JTF_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JTF_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JTF_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JCB_concert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JRB_oui)
                     .addComponent(JRB_non)
-                    .addComponent(JB_reserver)
-                    .addComponent(jButton2)
-                    .addComponent(JTF_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JB_modifier)
+                    .addComponent(JB_supprimer)
+                    .addComponent(JTF_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JTF_nump, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JB_reserver))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_precedent)
-                    .addComponent(JB_suivant)
-                    .addComponent(JB_supprimer))
+                    .addComponent(JB_suivant))
                 .addContainerGap())
         );
 
@@ -250,6 +279,8 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setText("ID :");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -259,8 +290,10 @@ public class Accueil extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1251, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(JTF_id, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JTF_id, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -271,7 +304,8 @@ public class Accueil extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTF_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
                 .addGap(40, 40, 40))
@@ -310,18 +344,19 @@ public class Accueil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void JRB_nonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRB_nonActionPerformed
-        if(JRB_non.isSelected())
-        JRB_oui.setSelected(false);
-    }//GEN-LAST:event_JRB_nonActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Affichage des résultats de la recherche au niveau du JTable
+        DefaultTableModel model = (DefaultTableModel)JT_billetR.getModel();
+        model.setRowCount(0);
+        showSearchBillet();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void JRB_ouiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRB_ouiActionPerformed
-        if(JRB_oui.isSelected())
-        JRB_non.setSelected(false);
-    }//GEN-LAST:event_JRB_ouiActionPerformed
+    private void JTF_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTF_idActionPerformed
 
     private void JB_reserverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_reserverActionPerformed
-        Connection con = getConnection();
+         Connection con = getConnection();
 
         if(checkInput()) { // Si les cases sont bien remplies
             try {
@@ -333,7 +368,7 @@ public class Accueil extends javax.swing.JFrame {
                 ps.setString(4, JCB_concert.getSelectedItem().toString());
                 if (JRB_oui.isSelected()) {
                     ps.setString(5, "Oui");
-                    ps.setInt(6, 1);
+                    ps.setInt(6,  Integer.parseInt(JTF_nump.getText()));
                     ps.setInt(7, 30);
                 } else {
                     ps.setString(5, "Non");
@@ -350,22 +385,34 @@ public class Accueil extends javax.swing.JFrame {
         else {
             JOptionPane.showMessageDialog(null, "Veuillez renseigner correctement les champs !");
         }
+
+        // Nettoyage des input
+        clearInput();
     }//GEN-LAST:event_JB_reserverActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Affichage des résultats de la recherche au niveau du JTable
-        showSearchBillet();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void JB_supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_supprimerActionPerformed
+        // Suppression des éléments
+        Connection con = getConnection();
 
-    private void JTF_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_idActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JTF_idActionPerformed
+        if(checkInput()) { // Si les cases sont bien remplies
+            try {
+                // Utilisation des requetes préparées
+                PreparedStatement ps = con.prepareStatement("DELETE FROM billet WHERE id = ?");
+                ps.setString(1, JTF_num.getText());
+                ps.executeUpdate();
+                showBillet();
+                JOptionPane.showMessageDialog(null, "Données supprimées avec succès");
+            } catch (SQLException ex) {
+                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Veuillez renseigner correctement les champs !");
+        }
 
-    private void JT_billetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JT_billetMouseClicked
-        // Remplissage des inputs au click sur une ligne du JTable
-        int index = JT_billet.getSelectedRow();
-        showElements(index);
-    }//GEN-LAST:event_JT_billetMouseClicked
+        // Nettoyage des input
+        clearInput();
+    }//GEN-LAST:event_JB_supprimerActionPerformed
 
     private void JB_suivantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_suivantActionPerformed
         // Parcours de la liste des billets avec le bouttton suivant
@@ -385,7 +432,27 @@ public class Accueil extends javax.swing.JFrame {
         showElements(pos);
     }//GEN-LAST:event_JB_precedentActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void JT_billetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JT_billetMouseClicked
+        // Remplissage des inputs au click sur une ligne du JTable
+        int index = JT_billet.getSelectedRow();
+        showElements(index);
+    }//GEN-LAST:event_JT_billetMouseClicked
+
+    private void JRB_nonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRB_nonActionPerformed
+        if(JRB_non.isSelected()) {
+            JRB_oui.setSelected(false);
+            JTF_nump.setEnabled(false);
+        }
+    }//GEN-LAST:event_JRB_nonActionPerformed
+
+    private void JRB_ouiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRB_ouiActionPerformed
+        if(JRB_oui.isSelected()) {
+            JRB_non.setSelected(false);
+            JTF_nump.setEnabled(true);
+        }
+    }//GEN-LAST:event_JRB_ouiActionPerformed
+
+    private void JB_modifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_modifierActionPerformed
         // Mise à jour des données
         Connection con = getConnection();
 
@@ -399,7 +466,7 @@ public class Accueil extends javax.swing.JFrame {
                 ps.setString(4, JCB_concert.getSelectedItem().toString());
                 if (JRB_oui.isSelected()) {
                     ps.setString(5, "Oui");
-                    ps.setInt(6, 1);
+                    ps.setInt(6, Integer.parseInt(JTF_nump.getText()));
                     ps.setInt(7, 30);
                 } else {
                     ps.setString(5, "Non");
@@ -417,28 +484,10 @@ public class Accueil extends javax.swing.JFrame {
         else {
             JOptionPane.showMessageDialog(null, "Veuillez renseigner correctement les champs !");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void JB_supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_supprimerActionPerformed
-        // Suppression des éléments
-        Connection con = getConnection();
-        
-        if(checkInput()) { // Si les cases sont bien remplies
-            try {
-                // Utilisation des requetes préparées
-                PreparedStatement ps = con.prepareStatement("DELETE FROM billet WHERE id = ?");
-                ps.setString(1, JTF_num.getText());
-                ps.executeUpdate();
-                showBillet();
-                JOptionPane.showMessageDialog(null, "Données supprimées avec succès");
-            } catch (SQLException ex) {
-                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Veuillez renseigner correctement les champs !");
-        }
-    }//GEN-LAST:event_JB_supprimerActionPerformed
+        // Nettoyage des input
+        clearInput();
+    }//GEN-LAST:event_JB_modifierActionPerformed
 
     // On vérifie que les inputs sont bien remplies
     public boolean checkInput() {
@@ -484,6 +533,7 @@ public class Accueil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JB_modifier;
     private javax.swing.JButton JB_precedent;
     private javax.swing.JButton JB_reserver;
     private javax.swing.JButton JB_suivant;
@@ -495,16 +545,19 @@ public class Accueil extends javax.swing.JFrame {
     private javax.swing.JTextField JTF_id;
     private javax.swing.JTextField JTF_nom;
     private javax.swing.JTextField JTF_num;
+    private javax.swing.JTextField JTF_nump;
     private javax.swing.JTextField JTF_prenom;
     private javax.swing.JTable JT_billet;
     private javax.swing.JTable JT_billetR;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -550,7 +603,6 @@ public class Accueil extends javax.swing.JFrame {
     }
     
     // Affichage des données au niveau du JTable
-    
     public void showBillet() {
         ArrayList<Billet> list = getBillet();
         DefaultTableModel model = (DefaultTableModel)JT_billet.getModel();
@@ -569,20 +621,20 @@ public class Accueil extends javax.swing.JFrame {
         }   
     }
     
-      // Affichage des résultats de la recherche au niveau du JTable
+      // Récupération des résultats de la recherche au niveau du JTable
     public ArrayList<Billet> getResultBillet() {
-        
         ArrayList<Billet> listBillet = new ArrayList<Billet>();
         Connection con = getConnection();
-        String query = "SELECT * FROM billet WHERE id = " + JTF_id.getText();
-        Statement st;
+        PreparedStatement ps;
         ResultSet rs;
         
         try {
-            st = con.createStatement();
-            rs = st.executeQuery(query);
+            ps = con.prepareStatement("SELECT * FROM billet WHERE id = ?");
+            ps.setInt(1, Integer.parseInt(JTF_id.getText()));
+            rs = ps.executeQuery();
             Billet billet;
             
+            // Tant qu'il ya des données à lire, on parcours la liste et on les ajoute dans listBillet
             while (rs.next()) {
                 billet = new Billet(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("concert"), rs.getString("place_assise"), rs.getInt("numero_place"), rs.getFloat("prix"));
                 listBillet.add(billet);
@@ -593,14 +645,13 @@ public class Accueil extends javax.swing.JFrame {
         return listBillet;
     }
     
-    // Show Search result billets in to the JTable
-    
+    // Affichage des résultats de la recherche dans la JTable
     public void showSearchBillet() {
         ArrayList<Billet> list = getResultBillet();
         DefaultTableModel model = (DefaultTableModel)JT_billetR.getModel();
         Object[] row = new Object[8];
         
-        if (!(list.isEmpty())) {
+        if (!(list.isEmpty())) { // Si la liste n'est pas vide
             for(int i = 0 ; i < list.size() ; i++) {
             row[0] = list.get(i).getId();
             row[1] = list.get(i).getNom();
@@ -623,5 +674,14 @@ public class Accueil extends javax.swing.JFrame {
         JTF_nom.setText(getBillet().get(index).getNom());
         JTF_prenom.setText(getBillet().get(index).getPrenom());
         JTF_email.setText(getBillet().get(index).getEmail());
+        JTF_nump.setText(String.valueOf(getBillet().get(index).getNumeroPlace()));
+    }
+    
+    // Nettoyage des inputs
+    public void clearInput() {
+        JTF_nom.setText("");
+        JTF_prenom.setText("");
+        JTF_email.setText("");
+        JTF_nump.setText("");
     }
 }
