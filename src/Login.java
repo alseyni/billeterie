@@ -120,7 +120,7 @@ ResultSet rs=null;
             if  (rs.next()){
                 Accueil ac = new Accueil();
                 ac.setVisible(true);
-                this.setVisible(false);
+                this.setVisible(rootPaneCheckingEnabled);
                 
             }
             else {
