@@ -649,52 +649,7 @@ public class Accueil extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (JCB_type.getSelectedItem().toString() == "nom") {
-            try {
-            ps = con.prepareStatement("SELECT * FROM billet WHERE nom = ?");
-            ps.setString(1, JTF_id.getText());
-            rs = ps.executeQuery();
-            Billet billet;
-            
-            // Tant qu'il ya des données à lire, on parcours la liste et on les ajoute dans listBillet
-            while (rs.next()) {
-                billet = new Billet(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("concert"), rs.getString("place_assise"), rs.getInt("numero_place"), rs.getFloat("prix"));
-                listBillet.add(billet);
-            }
-            } catch (SQLException ex) {
-                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (JCB_type.getSelectedItem().toString() == "prenom") {
-            try {
-            ps = con.prepareStatement("SELECT * FROM billet WHERE prenom = ?");
-            ps.setString(1, JTF_id.getText());
-            rs = ps.executeQuery();
-            Billet billet;
-            
-            // Tant qu'il ya des données à lire, on parcours la liste et on les ajoute dans listBillet
-            while (rs.next()) {
-                billet = new Billet(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("concert"), rs.getString("place_assise"), rs.getInt("numero_place"), rs.getFloat("prix"));
-                listBillet.add(billet);
-            }
-            } catch (SQLException ex) {
-                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            try {
-            ps = con.prepareStatement("SELECT * FROM billet WHERE nom = ?");
-            ps.setString(1, JTF_id.getText());
-            rs = ps.executeQuery();
-            Billet billet;
-            
-            // Tant qu'il ya des données à lire, on parcours la liste et on les ajoute dans listBillet
-            while (rs.next()) {
-                billet = new Billet(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("concert"), rs.getString("place_assise"), rs.getInt("numero_place"), rs.getFloat("prix"));
-                listBillet.add(billet);
-            }
-            } catch (SQLException ex) {
-                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } 
+        }
         return listBillet;
     }
     
