@@ -1,9 +1,10 @@
+/*
+    Projet Ingénierie Logicielle M1 MTII
+*/
+
 import java.sql.*;
 import javax.swing.*;
-/**
- *
- * @author Hamza
- */
+
 public class DBConnection {
     static Connection conn=null;
     private DBConnection(){}

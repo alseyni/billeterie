@@ -1,10 +1,10 @@
+/*
+    Projet Ingénierie Logicielle M1 MTII
+*/
+
 import java.sql.*;
 import javax.swing.*;
 
-/**
- *
- * @author Hamza
- */
 public class Login extends javax.swing.JFrame {
 Connection conn = null;
 PreparedStatement pst=null;
@@ -120,8 +120,7 @@ ResultSet rs=null;
             if  (rs.next()){
                 Accueil ac = new Accueil();
                 ac.setVisible(true);
-                this.setVisible(rootPaneCheckingEnabled);
-                
+                this.setVisible(false);
             }
             else {
                 JOptionPane.showMessageDialog(null, "Login ou Mot de passe invalide!","Acces refuser",JOptionPane.ERROR_MESSAGE); 
