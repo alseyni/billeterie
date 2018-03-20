@@ -63,6 +63,7 @@ public class Accueil extends javax.swing.JFrame {
         JTF_id = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        JCB_type = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -279,7 +280,9 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("ID :");
+        jLabel8.setText("Rechercher par :");
+
+        JCB_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id", "nom", "prenom", "email" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -292,7 +295,9 @@ public class Accueil extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTF_id, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JCB_type, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JTF_id, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -305,7 +310,8 @@ public class Accueil extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTF_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(JCB_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
                 .addGap(40, 40, 40))
@@ -350,10 +356,6 @@ public class Accueil extends javax.swing.JFrame {
         model.setRowCount(0);
         showSearchBillet();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void JTF_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_idActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JTF_idActionPerformed
 
     private void JB_reserverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_reserverActionPerformed
          Connection con = getConnection();
@@ -489,6 +491,10 @@ public class Accueil extends javax.swing.JFrame {
         clearInput();
     }//GEN-LAST:event_JB_modifierActionPerformed
 
+    private void JTF_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTF_idActionPerformed
+
     // On vérifie que les inputs sont bien remplies
     public boolean checkInput() {
         if (JTF_nom.getText().equals("") && JTF_prenom.getText().equals("") && JTF_email.getText().equals(""))
@@ -539,6 +545,7 @@ public class Accueil extends javax.swing.JFrame {
     private javax.swing.JButton JB_suivant;
     private javax.swing.JButton JB_supprimer;
     private javax.swing.JComboBox<String> JCB_concert;
+    private javax.swing.JComboBox<String> JCB_type;
     private javax.swing.JRadioButton JRB_non;
     private javax.swing.JRadioButton JRB_oui;
     private javax.swing.JTextField JTF_email;
@@ -627,8 +634,8 @@ public class Accueil extends javax.swing.JFrame {
         Connection con = getConnection();
         PreparedStatement ps;
         ResultSet rs;
-        
-        try {
+        if (JCB_type.getSelectedItem().toString() == "Id") {
+            try {
             ps = con.prepareStatement("SELECT * FROM billet WHERE id = ?");
             ps.setInt(1, Integer.parseInt(JTF_id.getText()));
             rs = ps.executeQuery();
@@ -639,9 +646,55 @@ public class Accueil extends javax.swing.JFrame {
                 billet = new Billet(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("concert"), rs.getString("place_assise"), rs.getInt("numero_place"), rs.getFloat("prix"));
                 listBillet.add(billet);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            } catch (SQLException ex) {
+                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (JCB_type.getSelectedItem().toString() == "nom") {
+            try {
+            ps = con.prepareStatement("SELECT * FROM billet WHERE nom = ?");
+            ps.setString(1, JTF_id.getText());
+            rs = ps.executeQuery();
+            Billet billet;
+            
+            // Tant qu'il ya des données à lire, on parcours la liste et on les ajoute dans listBillet
+            while (rs.next()) {
+                billet = new Billet(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("concert"), rs.getString("place_assise"), rs.getInt("numero_place"), rs.getFloat("prix"));
+                listBillet.add(billet);
+            }
+            } catch (SQLException ex) {
+                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (JCB_type.getSelectedItem().toString() == "prenom") {
+            try {
+            ps = con.prepareStatement("SELECT * FROM billet WHERE prenom = ?");
+            ps.setString(1, JTF_id.getText());
+            rs = ps.executeQuery();
+            Billet billet;
+            
+            // Tant qu'il ya des données à lire, on parcours la liste et on les ajoute dans listBillet
+            while (rs.next()) {
+                billet = new Billet(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("concert"), rs.getString("place_assise"), rs.getInt("numero_place"), rs.getFloat("prix"));
+                listBillet.add(billet);
+            }
+            } catch (SQLException ex) {
+                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+            ps = con.prepareStatement("SELECT * FROM billet WHERE nom = ?");
+            ps.setString(1, JTF_id.getText());
+            rs = ps.executeQuery();
+            Billet billet;
+            
+            // Tant qu'il ya des données à lire, on parcours la liste et on les ajoute dans listBillet
+            while (rs.next()) {
+                billet = new Billet(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("concert"), rs.getString("place_assise"), rs.getInt("numero_place"), rs.getFloat("prix"));
+                listBillet.add(billet);
+            }
+            } catch (SQLException ex) {
+                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
         return listBillet;
     }
     
